@@ -9,6 +9,9 @@ on:
     - main
   workflow_dispatch:
 
+permissions:
+    actions: write
+
 jobs:
     Build:
         runs-on: ubuntu-24.04

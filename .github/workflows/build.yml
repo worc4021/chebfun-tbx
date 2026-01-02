@@ -25,6 +25,8 @@ jobs:
                 path: ${{ github.workspace }}/chebfun
                 repository: chebfun/chebfun
                 fetch-depth: '0'
+        -   run: git config --global --add safe.directory ${{ github.workspace }}/chebfun
+            name: Allow git operations in chebfun
         -   name: Bump version and push tag
             if: github.ref_name == 'main'
             id: tag_version

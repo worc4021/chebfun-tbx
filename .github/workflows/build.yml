@@ -30,15 +30,11 @@ jobs:
         -   name: Bump version and push tag
             if: github.ref_name == 'main'
             id: tag_version
-            uses: anothrNick/github-tag-action@v1
-            env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-                TAG_PREFIX: v
-                RELEASE_BRANCHES: main
-                SOURCE: chebfun
-                DRY_RUN: true
-                INITIAL_VERSION: 1.0.0
-                VERBOSE: true
+            uses: hennejg/github-tag-action@v4.3.1
+            with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                dry_run: true
+                release_branches: main
         -   name: Set Tag Output
             if: github.ref_name == 'main'
             id: set_tag_output

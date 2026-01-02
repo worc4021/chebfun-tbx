@@ -5,7 +5,9 @@ arguments
     outdir (1,1) string {mustBeFolder} = fileparts(mfilename("fullpath"));
     version (1,1) string = "1.0.0";
 end
-
+if strlength(version) == 0
+    version = "1.0.0";
+end
 uuid = string(java.util.UUID.randomUUID);
 opts = matlab.addons.toolbox.ToolboxOptions(basedir,uuid);
 opts.ToolboxName = tbname;

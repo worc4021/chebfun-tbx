@@ -13,11 +13,11 @@ jobs:
     Build:
         runs-on: ubuntu-24.04
         continue-on-error: true
+        outputs:
+            new_tag: ${{ steps.set_tag_output.outputs.new_tag }}
         steps:
         -   uses: actions/checkout@v6
             name: Clone self
-            with:
-                path: ${{ github.workspace }}/build
         -   uses: actions/checkout@v6
             name: Clone chebfun
             with:
@@ -26,7 +26,7 @@ jobs:
         -   name: Bump version and push tag
             if: github.ref_name == 'main'
             id: tag_version
-            uses: hennejg/github-tag-action@v4.3.1
+            uses: mathieudutour/github-tag-action@v6.2
             with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 release_branches: main
@@ -39,12 +39,12 @@ jobs:
         -   name: Package toolbox
             uses: matlab-actions/run-command@v2
             with:
-                command: addpath('${{ github.workspace }}/build'); package("chebfun","${{ github.workspace }}/chebfun", "${{ steps.tag_version.outputs.new_tag }}");
+                command: addpath('${{ github.workspace }}'); package("chebfun","${{ github.workspace }}/chebfun", "${{ github.workspace }}","${{ steps.tag_version.outputs.new_tag }}");
         -   uses: actions/upload-artifact@v4
             name: Upload chebfun.mltbx
             with:
                 name: chebfun.mltbx
-                path: ${{ github.workspace }}/build/chebfun.mltbx
+                path: ${{ github.workspace }}/chebfun.mltbx
     Release:
         needs: Build
         runs-on: ubuntu-latest

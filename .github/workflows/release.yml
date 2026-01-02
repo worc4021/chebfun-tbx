@@ -15,8 +15,6 @@ jobs:
     - uses: actions/download-artifact@v4
       name: Download chebfun.mltbx
       with:
-        name: chebfun.mltbx
-        github-token: ${{ secrets.GITHUB_TOKEN }}
         path: ${{ github.workspace }}
     - name: Create Release
       id: create_release

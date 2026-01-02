@@ -15,16 +15,22 @@ jobs:
         continue-on-error: true
         steps:
         - uses: actions/checkout@v6
+          name: Clone self
           with:
             path: ${{ github.workspace }}/build
         - uses: actions/checkout@v6
+          name: Clone chebfun
           with:
             path: ${{ github.workspace }}/chebfun
             repository: chebfun/chebfun
         - name: Set up MATLAB
           uses: matlab-actions/setup-matlab@v2
-        - name: Run script
+        - name: Package toolbox
           uses: matlab-actions/run-command@v2
           with:
             command: addpath('${{ github.workspace }}/build'); package("chebfun","${{ github.workspace }}/chebfun");
+        - name: List build directory
+          run: |
+            ls -lAh ${{ github.workspace }}/build
+
 

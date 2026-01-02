@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-    linux-build:
+    ReleaseTbx:
         runs-on: ubuntu-24.04
         continue-on-error: true
         steps:
@@ -29,6 +29,17 @@ jobs:
           uses: matlab-actions/run-command@v2
           with:
             command: addpath('${{ github.workspace }}/build'); package("chebfun","${{ github.workspace }}/chebfun");
+        - name: Create Release
+          id: create_release
+          if: github.ref_type == 'tag'
+          uses: actions/create-release@latest
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: ${{ github.ref }}
+            release_name: Release ${{ github.ref }}
+            draft: false
+            prerelease: false
         - name: List build directory
           run: |
             ls -lAh ${{ github.workspace }}/build

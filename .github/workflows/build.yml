@@ -29,6 +29,7 @@ jobs:
             uses: hennejg/github-tag-action@v4.1.jh1
             with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
+                release_branches: main
         -   name: Set Tag Output
             if: github.ref_name == 'main'
             id: set_tag_output

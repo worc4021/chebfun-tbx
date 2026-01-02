@@ -10,5 +10,6 @@ opts = matlab.addons.toolbox.ToolboxOptions(basedir,uuid);
 opts.ToolboxName = tbname;
 opts.OutputFile = fullfile(outdir,tbname+".mltbx");
 matlab.addons.toolbox.packageToolbox(opts);
+disp("Generated "+opts.OutputFile)
 
 end

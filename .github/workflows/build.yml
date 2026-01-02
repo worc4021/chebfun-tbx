@@ -24,6 +24,7 @@ jobs:
             with:
                 path: ${{ github.workspace }}/chebfun
                 repository: chebfun/chebfun
+                fetch-depth: '0'
         -   name: Bump version and push tag
             if: github.ref_name == 'main'
             id: tag_version

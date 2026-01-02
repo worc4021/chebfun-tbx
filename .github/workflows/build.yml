@@ -30,25 +30,11 @@ jobs:
           with:
             command: addpath('${{ github.workspace }}/build'); package("chebfun","${{ github.workspace }}/chebfun");
         - uses: actions/upload-artifact@v4
+          name: Upload chebfun.mltbx
           with:
             name: chebfun.mltbx
             path: ${{ github.workspace }}/build/chebfun.mltbx
         
-        # - name: Create Release
-        #   id: create_release
-        #   if: github.ref_type == 'tag'
-        #   uses: actions/create-release@latest
-        #   env:
-        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   with:
-        #     tag_name: ${{ github.ref }}
-        #     release_name: Release ${{ github.ref }}
-        #     draft: false
-        #     prerelease: false
-        # - name: Release
-        #   uses: softprops/action-gh-release@v2
-        #   if: github.ref_type == 'tag'
-        #   with:
-        #     files: ${{ github.workspace }}/build/chebfun.mltbx
+        
 
 
